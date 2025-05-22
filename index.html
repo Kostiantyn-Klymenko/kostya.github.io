@@ -1,81 +1,221 @@
-<!doctype html>
-<html>
-<head>
-    <title>Grocery Shop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
-<div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Grocery Shop</h1>
-    <div class="flex flex-col md:flex-row gap-8">
-        <!-- Products -->
-        <div class="md:w-1/2 bg-white rounded-lg shadow p-6">
-            <h2 class="text-2xl font-semibold mb-4 text-green-700">Products</h2>
-            <ul>
-            {% for name, price in products.items() %}
-                <li class="flex items-center justify-between border-b py-2">
-                    <span>{{name}}: <span class="font-semibold text-gray-700">${{'%.2f' % price}}</span></span>
-                    <form action="{{url_for('add_to_cart')}}" method="post" class="flex items-center gap-2">
-                        <input type="hidden" name="product_name" value="{{name}}">
-                        <input type="number" name="quantity" value="1" min="1" class="w-16 px-2 py-1 border rounded">
-                        <input type="submit" value="Add to Cart" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded cursor-pointer">
-                    </form>
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
-        <!-- Cart -->
-        <div class="md:w-1/2 bg-white rounded-lg shadow p-6">
-            <h2 class="text-2xl font-semibold mb-4 text-yellow-700">Cart</h2>
-            <ul>
-            {% for item in cart %}
-                <li class="flex items-center justify-between border-b py-2">
-                    <span>{{item[0]}} x{{item[1]}} @ <span class="font-semibold text-gray-700">${{'%.2f' % item[2]}}</span></span>
-                    <form action="{{url_for('remove_from_cart')}}" method="post">
-                        <input type="hidden" name="product_name" value="{{item[0]}}">
-                        <input type="submit" value="Remove" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded cursor-pointer">
-                    </form>
-                </li>
-            {% endfor %}
-            </ul>
-            <p class="mt-4 text-lg font-bold text-right">Total: <span class="text-blue-700">${{'%.2f' % total}}</span></p>
-            <!-- Coupon -->
-            <form action="{{url_for('apply_coupon')}}" method="post" class="mt-4 flex gap-2">
-                <input type="text" name="coupon_code" placeholder="Coupon code" class="flex-1 px-3 py-2 border rounded">
-                <input type="submit" value="Apply Coupon" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded cursor-pointer">
-            </form>
-            {% if coupon_msg %}
-                <p class="mt-2 text-green-600 font-semibold">{{coupon_msg}}</p>
-            {% endif %}
-            <!-- Actions -->
-            <div class="flex flex-wrap gap-2 mt-6">
-                <form action="{{url_for('checkout')}}" method="post">
-                    <input type="submit" value="Checkout" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded cursor-pointer">
-                </form>
-                <form action="{{url_for('save_cart')}}" method="post">
-                    <input type="submit" value="Save Cart" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded cursor-pointer">
-                </form>
-                <form action="{{url_for('load_cart')}}" method="post">
-                    <input type="submit" value="Load Cart" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded cursor-pointer">
-                </form>
-                <form action="{{url_for('save_products')}}" method="post">
-                    <input type="submit" value="Save Products" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded cursor-pointer">
-                </form>
-                <form action="{{url_for('load_products')}}" method="post">
-                    <input type="submit" value="Load Products" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded cursor-pointer">
-                </form>
-            </div>
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                <ul class="mt-4">
-                {% for message in messages %}
-                  <li class="text-red-600 font-semibold">{{ message }}</li>
-                {% endfor %}
-                </ul>
-              {% endif %}
-            {% endwith %}
-        </div>
-    </div>
-</div>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+<!-- This to define the language like now English -->
+	<head>
+		<meta charset = "UTF-8">
+		<title>Products Page</title>
+<!-- my title -->
+	<style>
+		:root { font-family: "comic sans ms"; } 
+		/*sats text style*/
+		.animate { 
+			animation: jump 1000ms linear infinite; 
+			display: inline-block; 
+		}
+        @keyframes jump { 
+			0% { transform: translateY(0) rotateZ(0deg); } 
+			50% { transform: translateY(-10px) rotateZ(180deg); } 
+			100% { transform: translateY(0) rotateZ(360deg); } 
+		}
+		/*part of the cod that allows frog to spin*/
+		dl{ 
+			width: 50%;		
+			float: left; 
+			background-color: rgba(242, 194, 70, 0.5);
+		}
+		/*Puts items in half transparent beige box and puts two items in one row */
+		.h{
+			text-align: center;
+		}
+			.icon{
+			width: 200px;
+			height: 300px;
+		}
+		:root {
+			background: linear-gradient(to bottom,white,lightgreen);
+			/*sets a background to white lightgreen gradient*/
+			background-repeat: no-repeat;
+			/*prevents repetition */
+		}
+		#all{
+			margin-left: 50px;
+			margin-right: 50px;
+		}
+		/* Make  'main' text sit in the middle between two spaces */
+		#last {
+			width: 100%;
+			float: left; 
+		}
+		/* Prevent uplink from moving round */
+	</style>
+	</head>
+	<body>
+		<header>
+		<h1 id="VeryTop"><img class="animate" src="vibing-rainbow.gif" alt="rainbow_frog" width="50" height="50"><strong>MangaDX</strong></h1>
+		<!-- Second end of my internal link to put the user back to the top of the home page -->
+		<p><a href="homePage.html">|Home|</a>|Products|<a href="Help.html">|Help|</a></p>
+		<hr>
+		</header>
+		<nav>
+		<ul>
+		<!-- This <ul> is for unordered list -->
+			<li><strong> <a href="#Isekai">Isekai</a> </strong></li>
+			<li><strong> <a href="#Action">Action</a> </strong></li>
+			<li><strong> <a href="#SliceOfLife">Slice Of Life</a> </strong></li>
+			<li><strong> <a href="#SurrealComedy">Surreal Comedy</a> </strong></li>
+			<!-- Those are internal links that lead to relevant sections of the site -->
+		</ul>
+		<hr>
+		</nav>
+		<main>
+		<div id="all">
+		<!-- Makes horizontal line -->
+		<div class = "h">
+		<h1 id="Isekai">Isekai:</h1>
+		</div>
+		<!-- One of the other ends of the internal link -->
+		<dl>
+		<!-- This <dl> is for descriptive list -->
+			<dt><a href="i1.html"><img src="Bone.jpg" alt="icon" class="icon"></a></dt>
+			<!-- This is my image external relative URL to go to relevanr product page -->
+				<dd><strong>Overlord</strong></dd>
+				<dd>8.8/10</dd>
+				<dd>What do you do when your favorite game shuts down?...</dd>
+				<dd>46.25 AED</dd>
+				<dd><br></dd>
+				<!-- Those things make space between each segment (the more the biger) -->
+				<!-- Also I think it would be excessive to explain each part of the code for rest of the mini item pages since they are literally identical -->
+			<dt><a href="i2.html"><img src="slime.webp" alt="icon" class="icon"></a></dt>
+				<dd><strong>That Time I Got Reincarnated as a Slime</strong></dd>
+				<dd>8.2/10</dd>
+				<dd>Satoru Mikami, a salaryman who...</dd>
+				<dd>34.02 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<dl>
+			<dt><a href="i3.html"><img src="KoNoSuBa.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>Konosuba</strong></dd>
+				<dd>8.1/10</dd>
+				<dd>The series follows Kazuma Satou, a boy who is sent to a fantasy world...</dd>
+				<dd>45.98 AED</dd>
+				<dd><br></dd>
+			<dt><a href="i4.html"><img src="Cat.webp" alt="icon" class="icon"></a></dt>
+				<dd><strong>Reincarnated as a Sword</strong></dd>
+				<dd>8.2/10</dd>
+				<dd>Reincarnated as a sentient weapon with memories of his past life, but...</dd>
+				<dd>43.00 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<hr>
+		<div class = "h">
+		<h1 id="Action">Action:</h1>
+		</div>
+		<dl>
+			<dt><a href="a1.html"><img src="JoJo.webp" alt="icon" class="icon"></a></dt>
+				<dd><strong>JoJo's Bizarre Adventures</strong></dd>
+				<dd>9.5/10</dd>
+				<dd>Story about the family fighting their curse...</dd>
+				<dd>40.35 AED</dd> 
+				<dd><br></dd>
+			<dt><a href="a2.html"><img src="ONE_PIECE.webp" alt="icon" class="icon"></a></dt>
+				<dd><strong>ONE PIECE</strong></dd>
+				<dd>9.5/10</dd>
+				<dd>The legendary high-seas quest unlike any other...</dd>
+				<dd>49.00 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<dl>
+			<dt><a href="a3.html"><img src="SPY.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>Spy x Family</strong></dd>
+				<dd>9.2/10</dd>
+				<dd>Loid Forger, a enigmatic spy who has to "build a family"...</dd>
+				<dd>46.93 AED</dd>
+				<dd><br></dd>
+			<dt><a href="a4.html"><img src="Berserk.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>Berserk</strong></dd>
+				<dd>9.6/10</dd>
+				<dd>Berserk is a dark medieval fantasy with very well developed characters...</dd>
+				<dd>43.45 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<hr>
+		<div class = "h">
+		<h1 id="SliceOfLife">Slice Of Life:</h1>
+		</div>
+		<dl>
+			<dt><a href="sol1.html"><img src="Love.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>Kaguya-Sama: LOVE IS WAR</strong></dd>
+				<dd>9.3/10</dd>
+				<dd>Kaguya is the daughter of a wealthy conglomerate family, and Miyuki is...</dd>
+				<dd>44.00 AED</dd>
+				<dd><br></dd>
+			<dt><a href="sol2.html"><img src="Home.webp" alt="icon" class="icon"></a></dt>
+				<dd><strong>The Way of the House Husband</strong></dd>
+				<dd>9.2/10</dd>
+				<dd>A former yakuza legend leaves it all behind to...</dd>
+				<dd>47.71 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<dl>
+			<dt><a href="sol3.html"><img src="komi.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>Komi Can't Communicate</strong></dd>
+				<dd>8.7/10</dd>
+				<dd>Shoko Komi, a high school girl who suffers from extreme social anxiety...</dd>
+				<dd>44.49 AED</dd>
+				<dd><br></dd>
+			<dt><a href="sol4.html"><img src="Lazy.webp" alt="icon" class="icon"></a></dt>
+				<dd><strong>Himouto! Umaru-chan</strong></dd>
+				<dd>8.1/10</dd>
+				<dd>Umaru Doma is a high school girl living...</dd>
+				<dd>48.00 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<hr>
+		<div class = "h">
+		<h1 id="SurrealComedy">Surreal Comedy:</h1>
+		</div>
+		<dl>
+			<dt><a href="sc1.html"><img src="My_Deer_Friend_Nokotan.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>My deer friend nokotan</strong></dd>
+				<dd>8.6/10</dd>
+				<dd>Torako Koshi, a second-year at Hino Minami High School, maintains...</dd>
+				<dd>57.00 AED</dd>
+				<dd><br></dd>
+			<dt><a href="sc2.html"><img src="Hellow.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>Azumanga Daioh</strong></dd>
+				<dd>8.9/10</dd>
+				<dd>Everyday life in an unnamed Japanese high school of six girls and two of their teachers...</dd>
+				<dd>45.40 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<dl>
+			<dt><a href="sc3.html"><img src="Deer.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>Nichijou</strong></dd>
+				<dd>9.3/10</dd>
+				<dd>While the title suggests a story of simple, everyday school life, the contents are more...</dd>
+				<dd>40.25 AED</dd>
+				<dd><br></dd>
+			<dt><a href="sc4.html"><img src="DEVIL.jpg" alt="icon" class="icon"></a></dt>
+				<dd><strong>The Devil Is a Part-Timer!</strong></dd>
+				<dd>8.4/10</dd>
+				<dd>After being soundly thrashed by the hero Emilia, the Devil King...</dd>
+				<dd>48.85 AED</dd>
+				<dd><br></dd>
+		</dl>
+		<div id="last">
+		<hr>
+		<hr>
+		<a href="#VeryTop">⇑Get back to the very top⇑</a>
+		<!-- First end of my internal link to put the user back to the top of the home page -->
+		<br><br><br><br>
+		<footer>
+		<hr>
+		<hr>
+		<p>Page Author: Kostiantyn Klymenko</p>
+		<p>Last Updated: November 2024</p>
+		</footer>
+		</div>
+		</div>
+		</main>
+	</body>
 </html>
