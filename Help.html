@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset = "UTF-8">
+		<title>We'll help</title>
+	<style>
+		:root { font-family: "comic sans ms"; } 
+		/*sets font to comic sense */
+        .animateWRENCH { animation: WRENCH 1000ms linear infinite; display: inline-block; }
+        @keyframes WRENCH { 0% { transform: translateY(0) rotateZ(0deg); } 50% { transform: translateY(-10px) rotateZ(30deg); } 60% { transform: translateY(0) rotateZ(10deg); } }
+		/* Dedicated animation for the wrench to jump */ 
+		.animate { animation: jump 1000ms linear infinite; display: inline-block; }
+        @keyframes jump { 0% { transform: translateY(0) rotateZ(0deg); } 50% { transform: translateY(-10px) rotateZ(180deg); } 100% { transform: translateY(0) rotateZ(360deg); } }
+		/* Dedicated animation for the frog to spiiiiiin */
+		body {
+			background-image: url("image.png");
+			/*sets a background image*/
+			background-repeat: no-repeat;
+			/*prevents image repetition */
+		}
+		main { 
+		float: left; 
+		width: 70%;
+		background-color: rgba(0, 0, 0, 0.4);
+		}
+		footer { 
+		clear: left;
+		}
+		/*(from line 20 to line 27) Puts the main part into half transparent black box that takes up 3/4 of the screen*/
+		#all{
+		margin-left: 50px;
+		margin-right: 50px;
+		}
+    </style>
+	</head>
+	<body>
+		<header>
+		<h1><img class="animate" src="vibing-rainbow.gif" alt="rainbow_frog" width="50" height="50"><strong>MangaDX</strong></h1>
+		<p><a href="homePage.html">|Home|</a><a href="Coursework.html">|Products|</a>|Help|</p>
+		<hr>
+		</header>
+		<div id = "all">
+		<div id = “fun”>
+<img src="man.png" alt="man" width="200" height="100"> 
+<img class="animateWRENCH" src="wrench.png" alt="wrench" width="75" height="25">
+		</div>
+		<main>
+	<h1>Do you have any problems?</h1>
+	<h2>If yes</h2>
+		<p><a href="mailto:FakeEmail@abc.com">Just E-mail us about those: [FakeEmail@abc.com]</a></p>
+		<p><a href="tel:+971505077444">or give us a call: [+971505077444]</a></p>
+		<!-- link for the phone num. tel: and link for emails mailto: -->
+		<p> We appreciate any feedback</p>
+		<br><br><br><br><br>
+		</main>
+		<footer>
+		<br><br><br><br><br>
+		<hr>
+		<hr>
+		<p>Page Author: Kostiantyn Klymenko</p>
+		<p>Last Updated: November 2024</p>
+		</footer>
+		</div>
+	</body>
+</html>

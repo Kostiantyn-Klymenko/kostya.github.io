@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- This to define the language like now English -->
+	<head>
+		<meta charset = "UTF-8">
+		<title>Products Page</title>
+<!-- my title -->
+	<style>
+		:root { font-family: "comic sans ms"; } 
+		.animate { 
+			animation: jump 1000ms linear infinite; 
+			display: inline-block; 
+		}
+        @keyframes jump { 
+			0% { transform: translateY(0) rotateZ(0deg); } 
+			50% { transform: translateY(-10px) rotateZ(180deg); } 
+			100% { transform: translateY(0) rotateZ(360deg); } 
+		}
+		table, th, td {
+					border-width: 2px; 
+					border-style: ridge;
+					border-color: black;
+		}
+		/* from line 12 till 16 is responsible of the table greed*/
+		th {
+			background-color: white; 
+		}
+		td {
+			background-color: white; 
+		}
+		/* from line 18 till 23 is responsible of the colores of greed background*/
+		:root {
+			background: linear-gradient(to bottom,white,lightblue);
+			/*sets a background to white lightblue gradient*/
+			background-repeat: no-repeat; 
+			/*prevents repetition */
+		}
+		#t{
+			text-align: center;
+		}
+		table{
+		margin-left: 310px;
+		}
+		#au { 
+		width: 60%;
+		float: left;
+		background-color: rgba(0, 0, 0, 0.2);
+		}
+		#all{
+		margin-left: 50px;
+		margin-right: 50px;
+		}
+		/* Make  'main' text sit in the middle between two spaces */
+		.b {
+		background-color: rgba(0, 0, 0, 0.2);
+		}
+		/* Everything under this classification is in the dark box */
+		.l {
+		width: 50%;
+		float: left;
+		}
+		#ul {
+			list-style-type: square;
+		}
+		h6 {
+			text-decoration: double underline; 
+			color: red;
+		}
+	</style>
+	</head>
+	<body>
+	<!-- Second end of my internal link to put the user back to the top of the home page -->
+		<header>
+		<h1 id="VeryTop"><img class="animate" src="vibing-rainbow.gif" alt="rainbow_frog" width="50" height="50"><strong>MangaDX</strong></h1>
+		<p>|Home|<a href="Coursework.html">|Products|</a><a href="Help.html">|Help|</a></p>
+		<!-- My external relative URLs to put the user to helper page, Products page and Home page  -->
+		<hr>
+		</header>
+		<div id = "all">
+		<main>
+		<div class = "b">
+		<h2>Welcome to MangaDX!</h2>
+		<p>Your go-to destination for timeless manga classics and hidden gems! At MangaDX, we’re passionate about bringing the joy of manga to life, whether you’re a die-hard collector or a curious newcomer.</p>
+		<br>
+		</div>
+		<hr>
+		<div id = "au">
+		<h2>About us</h2>
+		<p>MangaDX is a small, family-run manga store with a rich history in serving the local community. Established in <em>1995</em>, we pride ourselves on offering:</p>
+		<ul id = "ul">
+			<li>A curated selection of manga, from popular titles to rare finds.</li>
+			<li>A cozy, welcoming atmosphere in our physical store.</li>
+			<li>A cozy, welcoming atmosphere in our physical store.</li>
+		</ul>
+		<p>Located in the heart of <a href="https://maps.app.goo.gl/3G67ha6ZoH6HuNfR9"> Sharjah</a>, MangaDX has been a gathering place for manga enthusiasts of all ages. We’re committed to keeping the spirit of manga alive!</p>
+		</div>
+		<img src="MangaDX.jpg" alt="icon" class="icon" width="470" height="470">
+		<hr>
+		<div class = "l">
+		<div class = "b">
+		<h2>Why Choose MangaDX?</h2>
+		<ol>
+			<li>Wide Collection
+					<ul>
+						<li>Classics like ONE PIECE, Berserk, and <br>JoJo's Bizarre Adventures.</li>
+						<li>Underrated gems you won’t find anywhere else.</li>
+					</ul>
+			</li>
+			<li>Affordable Prices
+					<ul>
+						<li>Discounts on bulk purchases.</li>
+						<li>Weekly sales and exclusive offers.</li>
+					</ul>
+			</li>
+			<li>Community-Driven
+					<ul>
+						<li>Monthly manga discussion groups.</li>
+						<li>Support for local manga artists and writers.</li>
+					</ul>
+			</li>
+		</ol>
+		<!--NESTED LIST--!>
+		<br><br><br>
+		</div>
+		</div>
+		<div class = "l">
+		<div class = "b">
+		<h2>Top Categories We Offer:</h2>
+		<ol>
+			<li>Genres
+					<ul>
+						<li>Isekai</li>
+						<li>Action</li>
+						<li>Slice Of Life</li>
+						<li>Surreal Comedy</li>
+					</ul>
+			</li>
+			<li>Formats
+					<ul>
+						<li>Hardcover editions</li>
+						<li>Collector’s box sets</li>
+					</ul>
+			</li>
+			<li>Community-Driven
+					<ul>
+						<li>Japanese</li>
+						<li>English</li>
+						<li>Bilingual editions</li>
+					</ul>
+			</li>
+		</ol>
+		<br>
+		</div>
+		</div>
+		<hr>
+		<div id = "t">
+		<h2>Our timetable for the physical store</h2>
+		</div>
+		<table>
+			<tr>
+			<th></th> <th>Mon</th> <th>Tue</th> <th>Wed</th> <th>Thu</th> <th>Fri</th> <th>Sat</th> <th>Sun</th>
+			</tr>
+			<tr>
+			<td>Open</td> <td>12:00am.</td> <td>12:00am.</td> <td>12:00am.</td> <td>12:00am.</td> <td>10:00am.</td> <td>10:00am.</td> <td>10:00am.</td> 
+			</tr>
+			<tr>
+			<td>Close</td> <td>5:00pm.</td> <td>5:00pm.</td> <td>5:00pm.</td> <td>5:00pm.</td> <td>7:00pm.</td> <td>7:00pm.</td> <td>7:00pm.</td> 
+			</tr>
+		</table>
+		<!-- table: create a table. th: top of column tr: rows. td: column.   -->
+		<br><br>
+		<hr>
+		<div class = "b">
+		<h2>Visit Us Today!</h2>
+		<p>Stop by our store for a nostalgic experience, or browse our online catalog for convenient shopping. <br>MangaDX is here to help you discover your next great adventure!</p>
+		<br>
+		</div>
+		<br><br>
+		<h6>This store is completely made up and should not be taken seriously.</h6>
+		<hr>
+		<a href="#VeryTop">⇑Get back to the very top⇑</a>
+		<br><br><br><br>
+		</main>
+		<footer>
+		<hr>
+		<hr>
+		<p>Page Author: Kostiantyn Klymenko</p>
+		<p>Last Updated: November 2024</p>
+		</footer>
+		</div>
+	</body>
+</html>
